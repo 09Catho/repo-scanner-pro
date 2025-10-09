@@ -214,6 +214,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 **Built with ❤️ For Devs
 
+## 👥 Contributors
+
+Thanks to these wonderful people for their contributions!
+
+- [@Frostykiller21](https://github.com/Frostykiller21)
+
 ⭐ Star this repo if you find it helpful!
 
 </div>
