@@ -212,7 +212,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 <div align="center">
 
-**Built with ❤️ using [Lovable](https://lovable.dev)**
+**Built with ❤️ For Devs
 
 ⭐ Star this repo if you find it helpful!
 
