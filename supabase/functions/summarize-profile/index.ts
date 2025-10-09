@@ -29,7 +29,7 @@ serve(async (req) => {
     }
 
     // Construct a comprehensive prompt with all the profile data
-    const prompt = `Analyze this GitHub profile and provide a comprehensive, insightful summary:
+    let prompt = `Analyze this GitHub profile and provide a comprehensive, insightful summary in **markdown format**:
 
 Username: ${profileData.profile.login}
 Name: ${profileData.profile.name || 'Not provided'}
@@ -51,15 +51,32 @@ ${profileData.topRepositories.slice(0, 5).map((r: any) =>
   `- ${r.name}: ${r.description || 'No description'} (⭐${r.stars}, 🍴${r.forks})`
 ).join('\n')}
 
-Organizations: ${profileData.organizations.length > 0 ? profileData.organizations.map((o: any) => o.login).join(', ') : 'None'}
+Organizations: ${profileData.organizations.length > 0 ? profileData.organizations.map((o: any) => o.login).join(', ') : 'None'}`;
 
-Please provide:
-1. A brief professional summary (2-3 sentences) highlighting their expertise and impact
-2. Key strengths based on their repositories and contributions
-3. Notable achievements (most starred repos, language expertise, community engagement)
-4. Overall developer profile assessment
+    // Add README analysis if available
+    if (profileData.readmeFiles && profileData.readmeFiles.length > 0) {
+      prompt += `\n\n## Recent Project Analysis\n\nI've analyzed the README files of the latest repositories:\n\n`;
+      profileData.readmeFiles.forEach((readme: any) => {
+        prompt += `\n### Repository: ${readme.repo}\n\n${readme.content.substring(0, 2000)}...\n`;
+      });
+      prompt += `\n\nBased on these README files, provide additional insights about the developer's project quality, documentation practices, and technical depth.`;
+    }
 
-Keep the tone professional yet approachable. Focus on actionable insights.`;
+    prompt += `\n\nPlease provide a detailed analysis in **markdown format** with the following sections:
+
+## Professional Summary
+2-3 sentences highlighting their expertise and impact.
+
+## Key Strengths
+Based on their repositories, contributions, and project documentation.
+
+## Notable Projects & Achievements
+Highlight most impressive repos, language expertise, and community engagement.
+
+## Technical Assessment
+Overall developer profile assessment including code quality indicators.
+
+Keep the tone professional yet approachable. Use markdown formatting (headers, lists, bold, italic) for better readability.`;
 
     // Call Lovable AI
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {

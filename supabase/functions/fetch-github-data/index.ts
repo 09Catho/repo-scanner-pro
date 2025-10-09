@@ -81,6 +81,36 @@ serve(async (req) => {
 
     const orgsData = await orgsResponse.json();
 
+    // Fetch README files for top 2 repos
+    const readmePromises = reposData.slice(0, 2).map(async (repo: any) => {
+      try {
+        const readmeResponse = await fetch(
+          `https://api.github.com/repos/${username}/${repo.name}/readme`,
+          {
+            headers: {
+              'Accept': 'application/vnd.github.v3+json',
+              'User-Agent': 'GitHub-Analyzer-App',
+            },
+          }
+        );
+        
+        if (readmeResponse.ok) {
+          const readmeData = await readmeResponse.json();
+          const readmeContent = atob(readmeData.content); // Decode base64
+          return {
+            repo: repo.name,
+            content: readmeContent,
+          };
+        }
+        return null;
+      } catch (error) {
+        console.error(`Failed to fetch README for ${repo.name}:`, error);
+        return null;
+      }
+    });
+
+    const readmeFiles = (await Promise.all(readmePromises)).filter(Boolean);
+
     // Calculate statistics
     const totalStars = reposData.reduce((acc: number, repo: any) => acc + (repo.stargazers_count || 0), 0);
     const totalForks = reposData.reduce((acc: number, repo: any) => acc + (repo.forks_count || 0), 0);
@@ -178,6 +208,7 @@ serve(async (req) => {
         url: repo.html_url,
         topics: repo.topics || [],
       })),
+      readmeFiles,
     };
 
     console.log('Successfully fetched GitHub data');

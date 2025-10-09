@@ -7,10 +7,12 @@ import { ProfileCard } from "@/components/ProfileCard";
 import { RetroAISummary } from "@/components/RetroAISummary";
 import { AchievementBadges } from "@/components/AchievementBadges";
 import { RepoHealthScores } from "@/components/RepoHealthScores";
-import { LanguageBreakdown } from "@/components/LanguageBreakdown";
+import { LanguageDoughnutChart } from "@/components/LanguageDoughnutChart";
+import { RepoBarChart } from "@/components/RepoBarChart";
 import { ActivityFeed } from "@/components/ActivityFeed";
 import { calculateAchievements } from "@/utils/achievementSystem";
 import { useToast } from "@/hooks/use-toast";
+import '@/utils/chartConfig'; // Initialize Chart.js
 
 interface GitHubData {
   profile: any;
@@ -155,12 +157,14 @@ const Index = () => {
 
               <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <LanguageBreakdown languages={githubData.languages} />
+                  <LanguageDoughnutChart languages={githubData.languages} />
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <ActivityFeed activities={githubData.recentActivity} />
+                  <RepoBarChart repositories={githubData.topRepositories} />
                 </Grid>
               </Grid>
+
+              <ActivityFeed activities={githubData.recentActivity} />
 
               <RepoHealthScores repositories={githubData.topRepositories} />
             </Box>
