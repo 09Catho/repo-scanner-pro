@@ -1,0 +1,4 @@
+project_id = "jmyymvnwxosqfeupkmyo"
+
+[functions.fetch-github-data]
+verify_jwt = false
