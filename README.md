@@ -8,9 +8,6 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
 **A retro-themed GitHub profile analyzer with AI-powered insights and interactive data visualizations.**
-
-[View Demo](https://lovable.dev/projects/e7b7b2f4-79e7-4ec5-a948-c13ecea1f086) • [Report Bug](https://github.com/yourusername/yourrepo/issues) • [Request Feature](https://github.com/yourusername/yourrepo/issues)
-
 </div>
 
 ---
@@ -69,8 +66,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone <YOUR_GIT_URL>
-   cd <YOUR_PROJECT_NAME>
+   git clone https://github.com/09Catho/repo-scanner-pro
    ```
 
 2. **Install dependencies**
@@ -198,26 +194,19 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
----
 
-## 📝 License
-
-This project is built with [Lovable](https://lovable.dev) and is available for personal and commercial use.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- **Lovable** - For the amazing full-stack platform
 - **GitHub API** - For providing comprehensive developer data
 - **shadcn/ui** - For beautiful, accessible components
 - **Recharts** - For powerful data visualization
 
 ---
 
-## 📞 Support
 
-For support, please visit [Lovable Documentation](https://docs.lovable.dev) or join our [Discord community](https://discord.com/channels/1119885301872070706/1280461670979993613).
 
 ---
 
