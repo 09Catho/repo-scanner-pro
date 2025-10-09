@@ -1,113 +1,33 @@
-import { Box, Container, Typography, TextField, Button } from '@mui/material';
-import { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
+import { useState } from "react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
-interface RetroHeaderProps {
-  onSearch: (username: string) => void;
-  isLoading: boolean;
-}
-
-export const RetroHeader = ({ onSearch, isLoading }: RetroHeaderProps) => {
-  const [username, setUsername] = useState('');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (username.trim()) {
-      onSearch(username.trim());
-    }
-  };
+export const RetroHeader = ({ onSearch, isLoading }: { onSearch: (username: string) => void; isLoading: boolean }) => {
+  const [username, setUsername] = useState("");
 
   return (
-    <Box
-      sx={{
-        background: 'linear-gradient(180deg, #0a0e27 0%, #1a1f3a 100%)',
-        borderBottom: '3px solid #ff00ff',
-        boxShadow: '0 5px 30px rgba(255, 0, 255, 0.4)',
-        py: 6,
-        position: 'relative',
-        overflow: 'hidden',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.03) 2px, rgba(0, 255, 255, 0.03) 4px)',
-          pointerEvents: 'none',
-        },
-      }}
-    >
-      <Container maxWidth="lg">
-        <Box textAlign="center" position="relative" zIndex={1}>
-          <Typography
-            variant="h1"
-            sx={{
-              mb: 2,
-              fontSize: { xs: '1.5rem', md: '2.5rem' },
-              animation: 'glow 2s ease-in-out infinite alternate',
-              '@keyframes glow': {
-                from: {
-                  textShadow: '0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff',
-                },
-                to: {
-                  textShadow: '0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff',
-                },
-              },
-            }}
+    <div className="relative z-10 border-b-4 border-[#ff00ff] bg-[#1a1f3a] shadow-[0_0_20px_rgba(255,0,255,0.5)]">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <h1 className="text-5xl font-['Press_Start_2P'] text-[#ff00ff] mb-8 text-center drop-shadow-[0_0_10px_rgba(255,0,255,0.8)]">
+          GITHUB ANALYZER
+        </h1>
+        <div className="flex gap-4 max-w-2xl mx-auto">
+          <Input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="ENTER GITHUB USERNAME..."
+            className="flex-1 bg-[#0a0e27] border-2 border-[#00ffff] text-[#00ffff] font-['VT323'] text-xl"
+            onKeyDown={(e) => e.key === 'Enter' && !isLoading && onSearch(username)}
+          />
+          <Button
+            onClick={() => onSearch(username)}
+            disabled={isLoading}
+            className="bg-[#ff00ff] hover:bg-[#ff00ff]/80 text-white font-['Press_Start_2P'] text-sm"
           >
-            GITHUB ANALYZER
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: '#00ffff',
-              mb: 4,
-              textShadow: '0 0 10px #00ffff',
-              fontFamily: '"VT323", monospace',
-              fontSize: '1.5rem',
-            }}
-          >
-            &gt;&gt; DECODE THE MATRIX • ANALYZE THE CODE • UNLOCK THE STATS &lt;&lt;
-          </Typography>
-
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-              display: 'flex',
-              gap: 2,
-              maxWidth: 600,
-              mx: 'auto',
-              flexDirection: { xs: 'column', sm: 'row' },
-            }}
-          >
-            <TextField
-              fullWidth
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter GitHub username..."
-              disabled={isLoading}
-              sx={{
-                '& input': {
-                  fontFamily: '"VT323", monospace',
-                  fontSize: '1.3rem',
-                  color: '#00ffff',
-                },
-              }}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={isLoading || !username.trim()}
-              startIcon={<SearchIcon />}
-              sx={{ minWidth: 150 }}
-            >
-              {isLoading ? 'SCANNING...' : 'ANALYZE'}
-            </Button>
-          </Box>
-        </Box>
-      </Container>
-    </Box>
+            SCAN
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };

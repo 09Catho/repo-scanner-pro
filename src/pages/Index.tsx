@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { ThemeProvider, CssBaseline, Container, Box, CircularProgress, Typography, Grid2 as Grid } from "@mui/material";
-import { retroTheme } from "@/theme/retroTheme";
 import { supabase } from "@/integrations/supabase/client";
 import { RetroHeader } from "@/components/RetroHeader";
 import { ProfileCard } from "@/components/ProfileCard";
@@ -12,7 +10,6 @@ import { RepoBarChart } from "@/components/RepoBarChart";
 import { ActivityFeed } from "@/components/ActivityFeed";
 import { calculateAchievements } from "@/utils/achievementSystem";
 import { useToast } from "@/hooks/use-toast";
-import '@/utils/chartConfig'; // Initialize Chart.js
 
 interface GitHubData {
   profile: any;
@@ -97,81 +94,45 @@ const Index = () => {
   const achievements = githubData ? calculateAchievements(githubData) : [];
 
   return (
-    <ThemeProvider theme={retroTheme}>
-      <CssBaseline />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          background: '#0a0e27',
-          position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: 'radial-gradient(circle, rgba(255, 0, 255, 0.1) 1px, transparent 1px)',
-            backgroundSize: '30px 30px',
-            pointerEvents: 'none',
-            zIndex: 0,
-          },
-        }}
-      >
-        <RetroHeader onSearch={handleSearch} isLoading={isLoading} />
+    <div className="min-h-screen bg-[#0a0e27] relative">
+      {/* Retro grid background */}
+      <div className="fixed inset-0 pointer-events-none z-0" style={{
+        backgroundImage: 'radial-gradient(circle, rgba(255, 0, 255, 0.1) 1px, transparent 1px)',
+        backgroundSize: '30px 30px',
+      }} />
+      
+      <RetroHeader onSearch={handleSearch} isLoading={isLoading} />
 
-        {isLoading && (
-          <Container maxWidth="lg" sx={{ py: 8, textAlign: 'center' }}>
-            <CircularProgress
-              size={80}
-              sx={{
-                color: '#ff00ff',
-                mb: 3,
-              }}
-            />
-            <Typography
-              variant="h3"
-              sx={{
-                color: '#00ffff',
-                textShadow: '0 0 10px #00ffff',
-                animation: 'blink 1s infinite',
-                '@keyframes blink': {
-                  '0%, 100%': { opacity: 1 },
-                  '50%': { opacity: 0.3 },
-                },
-              }}
-            >
-              DECODING GITHUB MATRIX...
-            </Typography>
-          </Container>
-        )}
+      {isLoading && (
+        <div className="relative z-10 max-w-7xl mx-auto py-20 text-center">
+          <div className="inline-block w-20 h-20 border-4 border-[#ff00ff] border-t-transparent rounded-full animate-spin mb-6" />
+          <h2 className="text-4xl font-['Press_Start_2P'] text-[#00ffff] animate-pulse">
+            DECODING GITHUB MATRIX...
+          </h2>
+        </div>
+      )}
 
-        {githubData && !isLoading && (
-          <Container maxWidth="lg" sx={{ py: 6, position: 'relative', zIndex: 1 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <ProfileCard profile={githubData.profile} statistics={githubData.statistics} />
-              
-              <RetroAISummary summary={aiSummary} isLoading={isSummaryLoading} />
+      {githubData && !isLoading && (
+        <div className="relative z-10 max-w-7xl mx-auto py-12 px-4">
+          <div className="flex flex-col gap-8">
+            <ProfileCard profile={githubData.profile} statistics={githubData.statistics} />
+            
+            <RetroAISummary summary={aiSummary} isLoading={isSummaryLoading} />
 
-              {achievements.length > 0 && <AchievementBadges achievements={achievements} />}
+            {achievements.length > 0 && <AchievementBadges achievements={achievements} />}
 
-              <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <LanguageDoughnutChart languages={githubData.languages} />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <RepoBarChart repositories={githubData.topRepositories} />
-                </Grid>
-              </Grid>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <LanguageDoughnutChart languages={githubData.languages} />
+              <RepoBarChart repositories={githubData.topRepositories} />
+            </div>
 
-              <ActivityFeed activities={githubData.recentActivity} />
+            <ActivityFeed activities={githubData.recentActivity} />
 
-              <RepoHealthScores repositories={githubData.topRepositories} />
-            </Box>
-          </Container>
-        )}
-      </Box>
-    </ThemeProvider>
+            <RepoHealthScores repositories={githubData.topRepositories} />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
