@@ -8,8 +8,8 @@ export const RetroAISummary = ({ summary, isLoading }: { summary: string | null;
     {isLoading ? (
       <div className="animate-pulse text-[#ff00ff]">Analyzing profile data...</div>
     ) : summary ? (
-      <div className="prose prose-invert max-w-none">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} className="text-[#00ffff] font-['VT323'] text-lg">{summary}</ReactMarkdown>
+      <div className="prose prose-invert max-w-none text-[#00ffff] font-['VT323'] text-lg">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{summary}</ReactMarkdown>
       </div>
     ) : (
       <div className="text-gray-400">AI summary will appear here</div>

@@ -8,7 +8,7 @@ export const AchievementBadges = ({ achievements }: { achievements: Achievement[
     <div className="flex flex-wrap gap-3">
       {achievements.map((achievement) => (
         <Badge key={achievement.id} className="bg-[#ff00ff] text-white px-4 py-2 text-sm">
-          {achievement.icon} {achievement.name}
+          {achievement.icon} {achievement.title}
         </Badge>
       ))}
     </div>
