@@ -7,6 +7,7 @@ import { LanguageChart } from "@/components/LanguageChart";
 import { TopRepositories } from "@/components/TopRepositories";
 import { ActivityTimeline } from "@/components/ActivityTimeline";
 import { StatsOverview } from "@/components/StatsOverview";
+import { AISummary } from "@/components/AISummary";
 import { useToast } from "@/hooks/use-toast";
 
 interface GitHubData {
@@ -22,11 +23,14 @@ interface GitHubData {
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [githubData, setGithubData] = useState<GitHubData | null>(null);
+  const [aiSummary, setAiSummary] = useState<string | null>(null);
+  const [isSummaryLoading, setIsSummaryLoading] = useState(false);
   const { toast } = useToast();
 
   const handleSearch = async (username: string) => {
     setIsLoading(true);
     setGithubData(null);
+    setAiSummary(null);
 
     try {
       const { data, error } = await supabase.functions.invoke('fetch-github-data', {
@@ -49,6 +53,35 @@ const Index = () => {
         title: "Success",
         description: `Analyzed @${username}'s profile!`,
       });
+
+      // Generate AI summary
+      setIsSummaryLoading(true);
+      try {
+        const { data: summaryData, error: summaryError } = await supabase.functions.invoke('summarize-profile', {
+          body: { profileData: data },
+        });
+
+        if (summaryError) throw summaryError;
+
+        if (summaryData.error) {
+          toast({
+            title: "AI Summary Warning",
+            description: summaryData.error,
+            variant: "destructive",
+          });
+        } else {
+          setAiSummary(summaryData.summary);
+        }
+      } catch (summaryError) {
+        console.error('Error generating AI summary:', summaryError);
+        toast({
+          title: "AI Summary Failed",
+          description: "Could not generate AI summary, but profile data is available.",
+        });
+      } finally {
+        setIsSummaryLoading(false);
+      }
+
     } catch (error) {
       console.error('Error fetching GitHub data:', error);
       toast({
@@ -98,6 +131,8 @@ const Index = () => {
             profile={githubData.profile} 
             statistics={githubData.statistics}
           />
+
+          <AISummary summary={aiSummary} isLoading={isSummaryLoading} />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <LanguageChart languages={githubData.languages} />
