@@ -1,73 +1,230 @@
-# Welcome to your Lovable project
+# 🚀 GitHub Analytics Dashboard
 
-## Project info
+<div align="center">
 
-**URL**: https://lovable.dev/projects/e7b7b2f4-79e7-4ec5-a948-c13ecea1f086
+![GitHub Analytics](https://img.shields.io/badge/GitHub-Analytics-blue?style=for-the-badge&logo=github)
+![React](https://img.shields.io/badge/React-18.3.1-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-## How can I edit this code?
+**A retro-themed GitHub profile analyzer with AI-powered insights and interactive data visualizations.**
 
-There are several ways of editing your application.
+[View Demo](https://lovable.dev/projects/e7b7b2f4-79e7-4ec5-a948-c13ecea1f086) • [Report Bug](https://github.com/yourusername/yourrepo/issues) • [Request Feature](https://github.com/yourusername/yourrepo/issues)
 
-**Use Lovable**
+</div>
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/e7b7b2f4-79e7-4ec5-a948-c13ecea1f086) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Features
 
-**Use your preferred IDE**
+### 📊 **Comprehensive Analytics**
+- **Profile Overview**: Display user information, bio, location, and social links
+- **Repository Statistics**: Total repos, stars, forks, and watchers
+- **Language Breakdown**: Interactive doughnut chart showing language distribution
+- **Repository Insights**: Bar chart visualizing top repositories by stars
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 🤖 **AI-Powered Analysis**
+- **Smart Summaries**: AI analyzes your GitHub profile and generates comprehensive insights
+- **README Analysis**: Automatically fetches and analyzes README files from top repositories
+- **Markdown Rendering**: Beautiful markdown formatting for AI-generated summaries
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 🎯 **Achievement System**
+- **Dynamic Badges**: Earn achievements based on your GitHub activity
+- **Contribution Tracking**: Monitor your contribution streak and impact
+- **Repository Health**: Score repositories based on documentation, activity, and engagement
 
-Follow these steps:
+### 🎨 **Retro Design**
+- **Cyberpunk Aesthetic**: Neon colors, pixel fonts, and retro gaming vibes
+- **Responsive Layout**: Fully responsive design that works on all devices
+- **Interactive Charts**: Beautiful, interactive data visualizations using Recharts
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🛠️ Tech Stack
 
-# Step 3: Install the necessary dependencies.
-npm i
+### **Frontend**
+- **React 18.3** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first styling
+- **Recharts** - Data visualization
+- **React Markdown** - Markdown rendering
+- **shadcn/ui** - Component library
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### **Backend**
+- **Lovable Cloud** - Full-stack platform powered by Supabase
+- **Edge Functions** - Serverless API endpoints
+- **AI Integration** - Lovable AI for profile analysis
+- **GitHub API** - Data fetching
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- GitHub account (for API access)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <YOUR_GIT_URL>
+   cd <YOUR_PROJECT_NAME>
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:8080`
+
+---
+
+## 📖 Usage
+
+1. **Enter a GitHub Username**: Type any GitHub username in the search bar
+2. **View Analytics**: Explore the user's profile statistics and repository data
+3. **Read AI Summary**: Get AI-generated insights about the developer's profile
+4. **Check Achievements**: See earned badges based on GitHub activity
+5. **Analyze Repositories**: Review repository health scores and language distribution
+
+---
+
+## 🏗️ Project Structure
+
+```
+├── src/
+│   ├── components/          # React components
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── AchievementBadges.tsx
+│   │   ├── ActivityFeed.tsx
+│   │   ├── LanguageDoughnutChart.tsx
+│   │   ├── ProfileCard.tsx
+│   │   ├── RepoBarChart.tsx
+│   │   ├── RepoHealthScores.tsx
+│   │   └── RetroAISummary.tsx
+│   ├── pages/              # Page components
+│   │   └── Index.tsx       # Main dashboard
+│   ├── utils/              # Utility functions
+│   │   └── achievementSystem.ts
+│   └── integrations/       # Supabase integration
+├── supabase/
+│   └── functions/          # Edge Functions
+│       ├── fetch-github-data/
+│       └── summarize-profile/
+└── public/                 # Static assets
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🎯 Key Components
 
-**Use GitHub Codespaces**
+### **Dashboard (`Index.tsx`)**
+Main application component that orchestrates data fetching and display.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### **Edge Functions**
+- **`fetch-github-data`**: Fetches user profile, repositories, and README files from GitHub API
+- **`summarize-profile`**: Uses AI to generate comprehensive profile analysis
 
-## What technologies are used for this project?
+### **Chart Components**
+- **`LanguageDoughnutChart`**: Displays programming language distribution
+- **`RepoBarChart`**: Shows top repositories by star count
 
-This project is built with:
+### **Achievement System**
+Dynamically calculates and displays badges based on:
+- Star count
+- Repository count
+- Contribution streak
+- Language diversity
+- Repository health
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🔧 Configuration
 
-Simply open [Lovable](https://lovable.dev/projects/e7b7b2f4-79e7-4ec5-a948-c13ecea1f086) and click on Share -> Publish.
+### Environment Variables
+The project uses Lovable Cloud, which automatically configures:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_PUBLISHABLE_KEY`
+- `VITE_SUPABASE_PROJECT_ID`
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🎨 Design System
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The project uses a retro cyberpunk theme with:
+- **Primary Colors**: Neon cyan (`#00ffff`) and magenta (`#ff00ff`)
+- **Background**: Dark navy (`#0a0a1a`, `#1a1f3a`)
+- **Typography**: Press Start 2P for headings, system fonts for body
+- **Components**: Custom-styled shadcn/ui components
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 📊 Features in Detail
+
+### AI Profile Analysis
+The AI analyzes:
+- User profile information and bio
+- Repository topics and descriptions
+- README content from top projects
+- Contribution patterns
+- Language preferences
+
+### Repository Health Scoring
+Factors include:
+- README presence and quality
+- Recent activity
+- Star/fork ratio
+- Description quality
+- Issue/PR activity
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📝 License
+
+This project is built with [Lovable](https://lovable.dev) and is available for personal and commercial use.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Lovable** - For the amazing full-stack platform
+- **GitHub API** - For providing comprehensive developer data
+- **shadcn/ui** - For beautiful, accessible components
+- **Recharts** - For powerful data visualization
+
+---
+
+## 📞 Support
+
+For support, please visit [Lovable Documentation](https://docs.lovable.dev) or join our [Discord community](https://discord.com/channels/1119885301872070706/1280461670979993613).
+
+---
+
+<div align="center">
+
+**Built with ❤️ using [Lovable](https://lovable.dev)**
+
+⭐ Star this repo if you find it helpful!
+
+</div>
